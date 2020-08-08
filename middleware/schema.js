@@ -19,6 +19,12 @@ exports.completeSchema = {
         serviceOptionId: Joi.string().trim().required(),
         paymentRef: Joi.string().trim().required()
     })
-}
+};
 
-// module.exports = { serviceSchema, bookingSchema, completeSchema};
+exports.confirmSchema = {
+    confirmPost: Joi.object().keys({
+        bookingId: Joi.string().trim().required(),
+        userId:    Joi.string().trim().required(),
+        userEmail: Joi.string().trim().email().required()
+    })
+}

@@ -1,13 +1,11 @@
+const Confirm = require("../models/Confirm")
 const fetch = require("node-fetch");
-const randomNumber = require("./idgen")
-// console.log(randomNumber)
 
-function sendmail(){
-    bookid = randomNumber
+function sendmail(recipient){
     var raw = JSON.stringify({ "provider": "sendgrid",
-    "subject": "You just made a booking, (Booking Ref): "+ bookid,
+    "subject": "Booking Completed",
     "recipients": [
-        "alugbinoluwaseyi1@gmail.com"
+        recipient
     ],
     "header": {
         "title": "The Email Header",
@@ -58,6 +56,34 @@ function sendmail(){
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
 }
-const mailSender = sendmail();
-// console.log(mailSender)
-module.exports = mailSender;
+
+exports.postConfirm = (req,res,next)=>{
+    const {bookingId, userId, userEmail} = req.body;
+    const newConfirm = Confirm({bookingId,userId,userEmail});
+    newConfirm.save((err,data)=>{
+        if(err){
+            if (err.code == 11000) {
+                let error = err['errmsg'].split(':')[2].split(' ')[1].split('_')[0];
+                res.status(500).send({
+                    message: `${error} Booking confirmed already`,
+                    status: 11000,
+                    error: err
+                });
+                return false;
+            }
+            res.status(500).send({
+                status:500,
+                message:"Could not confirm booking"
+            });
+        }
+        else{
+            // console.log(data)            
+            sendmail();
+            res.status(200).send({
+                status:200,
+                message: "Booking Confirmed",
+                data: data
+            });
+        }
+    });
+};
