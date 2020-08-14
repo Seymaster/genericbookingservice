@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 
 function sendmail(recipient){
     var raw = JSON.stringify({ "provider": "sendgrid",
-    "subject": "Booking Completed",
+    "subject": "Booking Confirmed",
     "recipients": [
         recipient
     ],
@@ -78,12 +78,38 @@ exports.postConfirm = (req,res,next)=>{
         }
         else{
             // console.log(data)            
-            sendmail();
+            sendmail(data.userEmail);
             res.status(200).send({
                 status:200,
                 message: "Booking Confirmed",
                 data: data
             });
         }
+    });
+};
+
+exports.getAllConfirmed = (req,res,next)=>{
+    Confirm.find()
+    .then( data => {
+        // console.log(data)
+        if(data === null){
+            res.status(503).json({
+                status:503,
+                message: "No Confirmed booking available"})
+        }
+        else{
+            res.status(200).send({
+                status: 200,
+                message: "Confirmed bookings Loaded Successfully",
+                data: data
+            });
+        }
+    })
+    .catch(err =>{
+        res.status(500).send({
+            status: 500,
+            message: "Error getting Confirmed booking",
+            err: err
+        })
     });
 };

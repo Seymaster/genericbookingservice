@@ -1,6 +1,5 @@
 const Complete     = require("../models/Complete");
 const fetch = require("node-fetch");
-const Confirm = require("../models/Confirm");
 
 function sendmail(){
     var raw = JSON.stringify({ "provider": "sendgrid",
@@ -91,18 +90,18 @@ exports.postComplete = (req,res,next) =>{
 
 
 exports.getAllConfirmed = (req,res,next)=>{
-    Confirm.find()
+    Complete.find()
     .then( data => {
         // console.log(data)
         if(data === null){
             res.status(503).json({
                 status:503,
-                message: "No Confirmed booking available"})
+                message: "No Completed booking available"})
         }
         else{
             res.status(200).send({
                 status: 200,
-                message: "Confirmed bookings Loaded Successfully",
+                message: "Completed bookings Loaded Successfully",
                 data: data
             });
         }
@@ -110,7 +109,7 @@ exports.getAllConfirmed = (req,res,next)=>{
     .catch(err =>{
         res.status(500).send({
             status: 500,
-            message: "Error getting Confirmed booking",
+            message: "Error getting Completed booking",
             err: err
         })
     });
