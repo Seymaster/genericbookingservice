@@ -7,6 +7,7 @@ const serviceRouter = require("./routes/service");
 const bookingRouter = require("./routes/booking")
 const app          = express();
 const PORT         = process.env.PORT || 8080;
+require("dotenv/config")
 
 
 mongoose.Promise = global.Promise;

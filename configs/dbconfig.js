@@ -1,5 +1,6 @@
+let username = process.env.db_username
+let password = process.env.db_password
+
 module.exports = {
-    dbUrl: 'mongodb://127.0.0.1:27017/booking',
-    dbName: 'Services',
-    prodDb: process.env.prodDb
+    dbUrl: `mongodb+srv://${username}:${password}@cluster0.2ip3w.mongodb.net/booking?retryWrites=true&w=majority`
 }
