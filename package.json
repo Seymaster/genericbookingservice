@@ -10,16 +10,17 @@
   "author": "Alugbin Oluwaseyi",
   "license": "ISC",
   "devDependencies": {
-    "express": "^4.17.1",
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.4",
-    "uuid": "^8.3.0"
+    
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "joi": "^17.2.0",
     "mongoose": "^5.9.27",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4",
+    "uuid": "^8.3.0"
   }
 }
