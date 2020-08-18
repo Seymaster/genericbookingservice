@@ -9,3 +9,6 @@ router.post("/booking/complete", middleware.addmiddleware(Schema.completeSchema.
 
 // GET /booking/complete
 router.get("/booking/complete", completeController.getAllCompleted);
+
+
+module.exports = router;

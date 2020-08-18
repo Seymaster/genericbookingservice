@@ -4,7 +4,9 @@ const cors         = require("cors");
 const mongoose     = require("mongoose");
 const dbconfig     = require("./configs/dbconfig");
 const serviceRouter = require("./routes/service");
-const bookingRouter = require("./routes/booking")
+const bookingRouter = require("./routes/booking");
+const completeRouter = require("./routes/complete");
+const confirmRouter = require("./routes/confirm");
 const app          = express();
 const PORT         = process.env.PORT || 8080;
 require("dotenv/config")
@@ -17,10 +19,12 @@ app.listen(PORT, (err)=>{
 });
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 app.use(logger("dev"));
 app.use("/api/v1", serviceRouter);
 app.use("/api/v1", bookingRouter);
+app.use("/api/v1", completeRouter);
+app.use("/api/v1", confirmRouter);
 
 
 mongoose.connect(dbconfig.dbUrl,
@@ -33,11 +37,11 @@ mongoose.connect(dbconfig.dbUrl,
     console.log(err)
 });
 
-app.use((req,res,next)=>{
-        return res.status(500).send({
-        status: 500,
-        message: "Server Error"
-    })
-})
+// app.use((req,res,next)=>{
+//         return res.status(404).send({
+//         status: 404,
+//         message: "This API doesnt exist"
+//     })
+// })
 
 

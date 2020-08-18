@@ -89,7 +89,7 @@ exports.postComplete = (req,res,next) =>{
 };
 
 
-exports.getAllConfirmed = (req,res,next)=>{
+exports.getAllCompleted = (req,res,next)=>{
     Complete.find()
     .then( data => {
         // console.log(data)
