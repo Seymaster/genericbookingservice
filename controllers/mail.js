@@ -56,4 +56,4 @@ function sendmail(bookid){
     .catch(error => console.log('error', error));
 }
 
-module.exports = {sendmail}
+module.exports = { sendmail }

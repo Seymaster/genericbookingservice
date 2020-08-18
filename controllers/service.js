@@ -1,8 +1,8 @@
 const Service = require("../models/Service");
-const { options } = require("../routes/service");
+// const { options } = require("../routes/service");
 
 exports.postService = (req,res,next) =>{
-    const { name }   = req.body;
+    const { name }  = req.body;
     const options =  [{ label: "Service 1",amount: 500},
                       { label: "Service 2",amount: 1000, default: true},
                       { label: "Service 3",amount: 1500, default: true}]
@@ -33,6 +33,7 @@ exports.postService = (req,res,next) =>{
         }
     })
 };
+
 
 exports.getService = (req,res,next)=>{
     Service.find()
@@ -77,6 +78,27 @@ exports.updateService = (req, res, next) =>{
         res.status(500).send({
             status: 500,
             message: " An error occurred"
+        });
+    });
+
+};
+
+
+exports.deleteService = (req, res, next) =>{
+    const optionId = req.params.id;
+    console.log(optionId)
+    Service.remove({_id:optionId})
+    .exec((err,data) =>{
+        if (err) {
+            res.status(500).send({
+                status: 500,
+                message: "An error Occurred"
+            });
+            return false;
+        }
+        res.status(200).send({
+            status:200,
+            message: `Service with id: ${optionId} deleted`
         });
     });
 

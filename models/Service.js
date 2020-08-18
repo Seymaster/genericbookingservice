@@ -10,7 +10,7 @@ const optionSchema = Schema({
 });
 
 const serviceSchema = Schema({
-    name:           {type: String,required: false,default: "Service A"},
+    name:           {type: String,required: true},
     options:        [optionSchema],
     dateCreated:    {type:Date,default:Date.now},
     dateModified:   {type:Date}

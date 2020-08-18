@@ -11,7 +11,9 @@ router.post("/services", middleware.addmiddleware(Schema.serviceSchema.servicePo
 router.get("/services", serviceController.getService)
 
 // PUT /Service Update
-router.put("/medical-logistics/:id",middleware.addmiddleware(Schema.serviceSchema.servicePost), serviceController.updateService)
+router.put("/services/:id",middleware.addmiddleware(Schema.serviceSchema.servicePost), serviceController.updateService)
 
 // DELETE /Service delete
+router.delete("/services/:id", serviceController.deleteService)
+
 module.exports = router;

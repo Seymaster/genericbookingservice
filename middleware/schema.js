@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 exports.serviceSchema = {
     servicePost: Joi.object().keys({
-        name: Joi.string().trim().optional()
+        name: Joi.string().trim().required()
     })
 };
 
