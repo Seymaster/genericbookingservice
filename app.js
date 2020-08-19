@@ -37,11 +37,11 @@ mongoose.connect(dbconfig.dbUrl,
     console.log(err)
 });
 
-// app.use((req,res,next)=>{
-//         return res.status(404).send({
-//         status: 404,
-//         message: "This API doesnt exist"
-//     })
-// })
+app.use((req,res,next)=>{
+        return res.status(404).send({
+        status: 404,
+        message: "This API doesnt exist"
+    })
+})
 
 
