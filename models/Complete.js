@@ -8,7 +8,7 @@ const completeSchema = new Schema({
     bookingId:       {type: String,required: true},
     serviceOptionId: {type: String,required: true},
     paymentRef:      {type: String,required: true},
-    createdAt:       {type: String,required: true}
+    createdAt:       {type: Date, default: Date.now}
 })
 
 const Complete = mongoose.model('Complete', completeSchema);
