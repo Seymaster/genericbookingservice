@@ -8,8 +8,7 @@ exports.serviceSchema = {
 
 exports.bookingSchema = {
     bookingPost: Joi.object().keys({
-        address: Joi.string().required(),
-        nextOfKin: Joi.string().required()
+        service: Joi.string().required()
     })
 };
 

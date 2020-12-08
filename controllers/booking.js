@@ -2,12 +2,12 @@ const Booking = require("../models/Booking");
 const fetch = require("node-fetch");
 const randomNumber = require("./idgen")
 
-function sendmail(){
+function sendmail(recipient){
     bookid = randomNumber
     var raw = JSON.stringify({ "provider": "sendgrid",
     "subject": "You just made a booking, (Booking Ref): "+ bookid,
     "recipients": [
-        "alugbinoluwaseyi1@gmail.com"
+       recipient
     ],
     "header": {
         "title": "The Email Header",
@@ -61,9 +61,12 @@ function sendmail(){
 
 
 exports.postBooking = (req,res,next)=>{
-    let {address,nextOfKin,services} = req.body;
-    services = [services];
-    newBooking = Booking({address,nextOfKin,services})
+    const userId = req.headers.userId;
+    const { service } = req.body;
+    // let userEmail = res.locals;
+        // address,nextOfKin,
+    // services = [services];
+    newBooking = Booking( {userId,service})
     newBooking.save((err,data)=>{
         if(err){
             if (err.code == 11000) {
@@ -82,7 +85,7 @@ exports.postBooking = (req,res,next)=>{
         }
         else{
             // console.log(data)            
-            sendmail();
+            // sendmail(userEmail);
             res.status(200).send({
                 status:200,
                 message: "Booking created successfully",

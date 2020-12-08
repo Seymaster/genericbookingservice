@@ -3,6 +3,7 @@ const router  = express.Router();
 const bookingController = require("../controllers/booking");
 const Schema = require("../middleware/schema");
 const middleware = require("../middleware/middleware");
+const { authenticate } = require("../middleware/MiddlewareAuth");
 
 // POST /saves a booking
 router.post("/booking", middleware.addmiddleware(Schema.bookingSchema.bookingPost),bookingController.postBooking);

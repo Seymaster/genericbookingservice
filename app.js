@@ -1,3 +1,5 @@
+require("dotenv").config();
+require("tm-redis")
 const express      = require("express");
 const logger       = require("morgan");
 const cors         = require("cors");
@@ -9,7 +11,7 @@ const completeRouter = require("./routes/complete");
 const confirmRouter = require("./routes/confirm");
 const app          = express();
 const PORT         = process.env.PORT || 8080;
-require("dotenv/config")
+const { requireClient } = require("./middleware/MiddlewareAuth");
 
 
 mongoose.Promise = global.Promise;
@@ -21,6 +23,7 @@ app.listen(PORT, (err)=>{
 app.use(express.json());
 app.use(cors());
 app.use(logger("dev"));
+app.use(requireClient)
 app.use("/api/v1", serviceRouter);
 app.use("/api/v1", bookingRouter);
 app.use("/api/v1", completeRouter);

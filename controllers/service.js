@@ -86,7 +86,7 @@ exports.updateService = (req, res, next) =>{
 
 exports.deleteService = (req, res, next) =>{
     const optionId = req.params.id;
-    console.log(optionId)
+    // console.log(optionId)
     Service.remove({_id:optionId})
     .exec((err,data) =>{
         if (err) {
