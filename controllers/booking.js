@@ -1,6 +1,7 @@
 const Booking = require("../models/Booking");
 const fetch = require("node-fetch");
 const randomNumber = require("./idgen")
+const { packageProduct } = require("./product")
 
 function sendmail(recipient){
     bookid = randomNumber
@@ -60,40 +61,42 @@ function sendmail(recipient){
 }
 
 
-exports.postBooking = (req,res,next)=>{
-    const userId = req.headers.userId;
-    const { service } = req.body;
-    // let userEmail = res.locals;
-        // address,nextOfKin,
-    // services = [services];
-    newBooking = Booking( {userId,service})
-    newBooking.save((err,data)=>{
-        if(err){
-            if (err.code == 11000) {
-                let error = err['errmsg'].split(':')[2].split(' ')[1].split('_')[0];
-                res.status(500).send({
-                    message: `${error} Booking saved already`,
-                    status: 11000,
-                    error: err
-                });
-                return false;
-            }
-            res.status(500).send({
-                status:500,
-                message:"Could not save Booking"
-            });
-        }
-        else{
-            // console.log(data)            
-            // sendmail(userEmail);
-            res.status(200).send({
-                status:200,
-                message: "Booking created successfully",
-                data: data
-            });
-        }
-    });
-};
+// exports.postBooking = (req,res,next)=>{
+//     const userId = req.headers.userId;
+
+//     const { service } = req.body;
+//     const product = await packageProduct();
+//     // let userEmail = res.locals;
+//         // address,nextOfKin,
+//     // services = [services];
+//     newBooking = Booking( {userId,service})
+//     newBooking.save((err,data)=>{
+//         if(err){
+//             if (err.code == 11000) {
+//                 let error = err['errmsg'].split(':')[2].split(' ')[1].split('_')[0];
+//                 res.status(500).send({
+//                     message: `${error} Booking saved already`,
+//                     status: 11000,
+//                     error: err
+//                 });
+//                 return false;
+//             }
+//             res.status(500).send({
+//                 status:500,
+//                 message:"Could not save Booking"
+//             });
+//         }
+//         else{
+//             // console.log(data)            
+//             // sendmail(userEmail);
+//             res.status(200).send({
+//                 status:200,
+//                 message: "Booking created successfully",
+//                 data: data
+//             });
+//         }
+//     });
+// };
 
 exports.getAllBooking = (req,res,next)=>{
     Booking.find().populate('services')

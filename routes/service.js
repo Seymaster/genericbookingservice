@@ -10,6 +10,9 @@ router.post("/services", middleware.addmiddleware(Schema.serviceSchema.servicePo
 // GET /Service
 router.get("/services", serviceController.getService)
 
+// GET /1 service
+router.get("/services/:id", serviceController.getService)
+
 // PUT /Service Update
 router.put("/services/:id",middleware.addmiddleware(Schema.serviceSchema.servicePost), serviceController.updateService)
 

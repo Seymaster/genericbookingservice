@@ -6,7 +6,7 @@ const middleware = require("../middleware/middleware");
 const { authenticate } = require("../middleware/MiddlewareAuth");
 
 // POST /saves a booking
-router.post("/booking", middleware.addmiddleware(Schema.bookingSchema.bookingPost),bookingController.postBooking);
+// router.post("/booking", middleware.addmiddleware(Schema.bookingSchema.bookingPost),bookingController.postBooking);
 
 // GET  /retrieves all booking 
 router.get("/booking", bookingController.getAllBooking)

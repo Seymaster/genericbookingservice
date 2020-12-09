@@ -1,11 +1,9 @@
 const Service = require("../models/Service");
-// const { options } = require("../routes/service");
 
 exports.postService = (req,res,next) =>{
     const { name }  = req.body;
     const options =  [{ label: "Service 1",amount: 500},
-                      { label: "Service 2",amount: 1000, default: true},
-                      { label: "Service 3",amount: 1500, default: true}]
+                      { label: "Service 2",amount: 1000}]
     const newService = Service({name,options});    
     newService.save((err,data)=>{
         if(err){

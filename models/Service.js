@@ -7,6 +7,7 @@ const optionSchema = Schema({
     label       : {type: String,required: true},
     amount      : {type: Number,required: true},
     default     : {type: Boolean,default: false},
+    product_id  : {type: String, required: false, default: null}
 });
 
 const serviceSchema = Schema({
