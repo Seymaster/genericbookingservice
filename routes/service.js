@@ -11,7 +11,7 @@ router.post("/services", middleware.addmiddleware(Schema.serviceSchema.servicePo
 router.get("/services", serviceController.getService)
 
 // GET /1 service
-router.get("/services/:id", serviceController.getService)
+router.get("/services/:id", serviceController.getOneService);
 
 // PUT /Service Update
 router.put("/services/:id",middleware.addmiddleware(Schema.serviceSchema.servicePost), serviceController.updateService)

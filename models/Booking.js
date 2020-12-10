@@ -4,8 +4,8 @@ const mongoose    = require("mongoose");
 const Schema      = mongoose.Schema;
 
 const bookingSchema = new Schema({
-    // address:        {type: String,required: true},
-    // nextOfKin:      {type: String,required: true},
+    address:        {type: String,required: true},
+    nextOfKin:      {type: String,required: true},
     userId:         {type: String, required: false},
     status:         {type: String,required: false, default: "PENDING"},
     service:        {type: Object,required: true},
