@@ -62,7 +62,6 @@ function sendmail(recipient){
 
 
 exports.postBooking = (req,res,next)=>{
-    const {address,nextOfKin,services} = req.body;
     let {address,nextOfKin,services} = req.body;
     services = [services];
     newBooking = Booking({address,nextOfKin,services})
