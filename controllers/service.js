@@ -1,25 +1,34 @@
 const Service = require("../models/Service");
+const { packageProduct } = require("./product");
 
-exports.postService = (req,res,next) =>{
-    const { name }  = req.body;
-    const options =  [{ label: "Service 1",amount: 500},
-                      { label: "Service 2",amount: 1000}]
+exports.postService = async (req,res,next) =>{
+    const { name,options }  = req.body;
+    // options =  req.body.options);
+    // console.log(options);
+    for(let i = 0; i < options.length; i++){
+        let product = await packageProduct(options[i].label,options[i].amount) // creates a product with the product API
+        // console.log(product);
+        product = JSON.parse(product)
+        let product_id = product.data.id
+        options[i].product_id = product_id;
+    }
     const newService = Service({name,options});    
     newService.save((err,data)=>{
         if(err){
-            if (err.code == 11000) {
-                let error = err['errmsg'].split(':')[2].split(' ')[1].split('_')[0];
-                res.status(500).send({
-                    message: `${error} Service Option saved already`,
-                    status: 11000,
-                    error: err
-                });
-                return false;
-            }
-            res.status(500).send({
-                status:500,
-                message:"Could not save Service Option"
-            });
+            console.log(err)
+            // if (err.code == 11000) {
+            //     let error = err['errmsg'].split(':')[2].split(' ')[1].split('_')[0];
+            //     res.status(500).send({
+            //         message: `${error} Service Option saved already`,
+            //         status: 11000,
+            //         error: err
+            //     });
+            //     return false;
+            // }
+            // res.status(500).send({
+            //     status:500,
+            //     message:"Could not save Service Option"
+            // });
         }
         else{
             // console.log(data)

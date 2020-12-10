@@ -23,7 +23,7 @@ app.listen(PORT, (err)=>{
 app.use(express.json());
 app.use(cors());
 app.use(logger("dev"));
-app.use(requireClient)
+// app.use(requireClient)
 app.use("/api/v1", serviceRouter);
 app.use("/api/v1", bookingRouter);
 app.use("/api/v1", completeRouter);
