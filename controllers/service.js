@@ -1,10 +1,9 @@
+const { serviceSchema } = require("../middleware/schema");
 const Service = require("../models/Service");
 const { packageProduct } = require("./product");
 
 exports.postService = async (req,res,next) =>{
     const { name,options }  = req.body;
-    // options =  req.body.options);
-    // console.log(options);
     for(let i = 0; i < options.length; i++){
         let product = await packageProduct(options[i].label,options[i].amount) // creates a product with the product API
         // console.log(product);
@@ -83,6 +82,34 @@ exports.getOneService = (req,res,next)=>{
                 status: 200,
                 message: "Service Loaded Successfully",
                 data: data
+            });
+        }
+    })
+    .catch(err =>{
+        res.status(500).send({
+            status: 500,
+            message: "Error getting the Service",
+            err: err
+        })
+    });
+};
+
+exports.getOneOption = (req,res,next) =>{
+    let { id, option_id} = req.params;
+    Service.findOne({_id:id})
+    .then( data => {
+        if(data === null){
+            res.status(404).json({
+                status:404,
+                message: "No Service available"})
+        }
+        else{
+                let newData = data.options.id(option_id)
+                console.log({newData})
+                res.status(200).send({
+                status: 200,
+                message: "Service Loaded Successfully",
+                data: newData
             });
         }
     })
